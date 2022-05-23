@@ -1,5 +1,7 @@
 package com.andreaseisele.rackerhank.data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,12 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
     public void delete(E value) {
         root = delete(value, root);
+    }
+
+    public List<E> inorder() {
+        final var result = new ArrayList<E>();
+        inorder(root, result);
+        return result;
     }
 
     private boolean contains(E value, Node<E> node) {
@@ -110,6 +118,17 @@ public class BinarySearchTree<E extends Comparable<E>> {
 
         nodeToDelete.value = node.value;
         return node.rightChild;
+    }
+
+    private void inorder(Node<E> node, List<E> result) {
+        LOG.debug("inorder traversal visiting {} -> {}", node, result);
+        if (node == null) {
+            return;
+        }
+
+        inorder(node.leftChild, result);
+        result.add(node.value);
+        inorder(node.rightChild, result);
     }
 
     private static class Node<E extends Comparable<E>> {

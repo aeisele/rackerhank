@@ -49,4 +49,16 @@ class BinarySearchTreeTest {
         assertDoesNotThrow(() -> tree.delete(4));
     }
 
+    @Test
+    void testInorderTraversal() {
+        final var tree = new BinarySearchTree<Integer>();
+        tree.insertAll(50, 25, 75, 10, 33, 56, 89, 4, 11, 30, 40, 52, 61, 82, 95);
+
+        final var listInOrder = tree.inorder();
+
+        assertThat(listInOrder)
+            .hasSize(15)
+            .isSorted();
+    }
+
 }
